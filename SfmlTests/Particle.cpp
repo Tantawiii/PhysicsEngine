@@ -15,6 +15,16 @@ void Particle::Update(float dt) {
     forces = Vector2d(0, 0);
 }
 
+
+//void Particle::Update(float dt) {
+//    velocity.x *= (1 - drag);
+//    velocity.y *= (1 - drag);
+//
+//    postion += velocity * dt;
+//
+//    forces = Vector2d(0, 0);
+//}
+
 void Particle::addForce(Vector2d force) {
     forces += force;
 }

@@ -4,7 +4,7 @@
 #include "Particle.h"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Circle");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Physics");
     window.setFramerateLimit(60);
 
     Renderer renderer;
@@ -12,12 +12,16 @@ int main() {
 
     sf::CircleShape circle(20.f);
     circle.setFillColor(sf::Color::Green);
-    circle.setPosition(400.f, 100.f);
+    circle.setPosition(400.f, 300.f);
 
-    Particle particle(Vector2d(400.f, 100.f), 1.0f);
+    Particle particle(Vector2d(400.f, 300.f), 20.0f, 0.01f);
+    //particle.velocity = Vector2d(50.0f, 0.0f);
     physicsWorld.addParticle(&particle);
 
+
     renderer.AddDrawable(&circle);
+
+    sf::Clock clock;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -25,8 +29,8 @@ int main() {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
-        float deltaTime = 10.0f / 60.0f;
+        float deltaTime = clock.restart().asSeconds();
+        //particle.addForce(Vector2d(50, 500));
         physicsWorld.Update(deltaTime);
 
         circle.setPosition(particle.postion.x, particle.postion.y);
