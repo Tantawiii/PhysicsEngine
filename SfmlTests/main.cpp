@@ -20,6 +20,9 @@ int main() {
     Particle particle(Vector2d(400.f, 300.f), 20.0f, 0.01f, "Circle");
     Particle particle2(Vector2d(600.f, 300.f), 1.0f, 0.0f, "Circle");
 
+    particle.collider.r = 20.0f;
+    particle2.collider.r = 20.0f;
+
     particle.velocity = Vector2d(50.0f, 0.0f);
     particle2.velocity = Vector2d(-50.0f, 0.0f);
 
@@ -60,7 +63,7 @@ int main() {
 
         physicsWorld.Update(deltaTime);
         physicsWorld.checkTwoCircleCollision();
-        //physicsWorld.checkAABBCollision();
+        physicsWorld.checkAABBCollision();
         circle.setPosition(particle.postion.x, particle.postion.y);
         circle2.setPosition(particle2.postion.x, particle.postion.y);
         square.setPosition(squareParticle.postion.x, squareParticle.postion.y);

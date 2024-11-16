@@ -10,6 +10,8 @@ class PhysicsWorld
 {
 private:
 	list<Particle*> particles;
+	bool circleFlag = false;
+	bool squareFlag = false;
 public:
 	void addParticle(Particle* particle);
 	void Update(float deltaTime);
