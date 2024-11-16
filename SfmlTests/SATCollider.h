@@ -6,9 +6,10 @@ using namespace std;
 
 class SATCollider
 {
-	Vector2d position;
 public:
+	Vector2d position;
 	vector<Vector2d> points;
+	Vector2d velocity;
 	void updatePosition(Vector2d position);
 
 	bool checkCollision(SATCollider other);

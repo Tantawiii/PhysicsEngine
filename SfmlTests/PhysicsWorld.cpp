@@ -7,6 +7,10 @@ void PhysicsWorld::addParticle(Particle* particle) {
     particles.push_back(particle);
 }
 
+void PhysicsWorld::addSATCollider(SATCollider* collider) {
+    satColliders.push_back(collider);
+}
+
 void PhysicsWorld::Update(float deltaTime) {
     for (Particle* particle : particles) {
         particle->addForce(gravity *particle->mass);
@@ -61,6 +65,27 @@ void PhysicsWorld::checkAABBCollision() {
             if (p1->squareCollider.checkCollision(p2->squareCollider) && !squareFlag) {
                 squareFlag = true;
                 std::cout << "Square collision detected!" << std::endl;
+            }
+        }
+    }
+}
+
+void PhysicsWorld::checkSATCollision() {
+    auto it = satColliders.begin();
+    auto beforeEnd = satColliders.end();
+    beforeEnd--;
+
+    for (; it != beforeEnd; ++it) {
+        SATCollider* c1 = *it;
+
+        auto itt = it;
+        ++itt;
+
+        for (; itt != satColliders.end(); ++itt) {
+            SATCollider* c2 = *itt;
+
+            if (c1->checkCollision(*c2)) {
+                std::cout << "SAT collision detected between shapes!" << std::endl;
             }
         }
     }

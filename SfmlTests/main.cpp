@@ -45,10 +45,47 @@ int main() {
     physicsWorld.addParticle(&squareParticle);
     physicsWorld.addParticle(&squareParticle2);
 
+    SATCollider shape1;
+    shape1.points = {
+        Vector2d(100, 200), Vector2d(350, 250), Vector2d(325, 300),
+        Vector2d(275, 300), Vector2d(250, 250)
+    };
+    shape1.updatePosition(Vector2d(-400, 100));
+
+    SATCollider shape2;
+    shape2.points = {
+        Vector2d(700, 400), Vector2d(550, 450), Vector2d(525, 500),
+        Vector2d(475, 500), Vector2d(450, 450)
+    };
+
+    shape2.updatePosition(Vector2d(300, 300));
+
+    sf::ConvexShape convexShape1;
+    convexShape1.setPointCount(shape1.points.size());
+    convexShape1.setFillColor(sf::Color::Cyan);
+    for (size_t i = 0; i < shape1.points.size(); i++) {
+        convexShape1.setPoint(i, sf::Vector2f(shape1.points[i].x, shape1.points[i].y));
+    }
+
+    sf::ConvexShape convexShape2;
+    convexShape2.setPointCount(shape2.points.size());
+    convexShape2.setFillColor(sf::Color::Magenta);
+    for (size_t i = 0; i < shape2.points.size(); i++) {
+        convexShape2.setPoint(i, sf::Vector2f(shape2.points[i].x, shape2.points[i].y));
+    }
+
+    shape1.velocity = Vector2d(50.0f, 0.0f);
+    shape2.velocity = Vector2d(-50.0f, 0.0f);
+
+    physicsWorld.addSATCollider(&shape1);
+    physicsWorld.addSATCollider(&shape2);
+    
     renderer.AddDrawable(&circle);
     renderer.AddDrawable(&circle2);
     renderer.AddDrawable(&square);
     renderer.AddDrawable(&square2);
+    renderer.AddDrawable(&convexShape1);
+    renderer.AddDrawable(&convexShape2);
 
     sf::Clock clock;
 
@@ -64,11 +101,14 @@ int main() {
         physicsWorld.Update(deltaTime);
         physicsWorld.checkTwoCircleCollision();
         physicsWorld.checkAABBCollision();
+        //physicsWorld.checkSATCollision();
         circle.setPosition(particle.postion.x, particle.postion.y);
         circle2.setPosition(particle2.postion.x, particle.postion.y);
         square.setPosition(squareParticle.postion.x, squareParticle.postion.y);
         square2.setPosition(squareParticle2.postion.x, squareParticle2.postion.y);
-
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::D) {
+            shape2.updatePosition(shape2.position + Vector2d(100, 0));
+        }
         renderer.Render(&window);
     }
 
