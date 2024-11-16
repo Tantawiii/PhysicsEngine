@@ -14,6 +14,7 @@ private:
 	list<SATCollider*> satColliders;
 	bool circleFlag = false;
 	bool squareFlag = false;
+	void handleElasticCollision(Particle* p1, Particle* p2);
 public:
 	void addParticle(Particle* particle);
 	void addSATCollider(SATCollider* collider);

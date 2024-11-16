@@ -17,8 +17,8 @@ int main() {
     circle.setPosition(400.f, 300.f);
     circle2.setPosition(600.f, 300.f);
 
-    Particle particle(Vector2d(400.f, 300.f), 20.0f, 0.01f, "Circle");
-    Particle particle2(Vector2d(600.f, 300.f), 1.0f, 0.0f, "Circle");
+    Particle particle(Vector2d(400.f, 300.f), 100.0f, 0.01f, "Circle");
+    Particle particle2(Vector2d(600.f, 300.f), 20.0f, 0.0f, "Circle");
 
     particle.collider.r = 20.0f;
     particle2.collider.r = 20.0f;
@@ -36,8 +36,8 @@ int main() {
     square.setPosition(400.f, 400.f);
     square2.setPosition(600.f, 400.f);
 
-    Particle squareParticle(Vector2d(400.f, 400.f), 1.0f, 0.0f, "Square");
-    Particle squareParticle2(Vector2d(600.f, 400.f), 1.0f, 0.0f, "Square");
+    Particle squareParticle(Vector2d(400.f, 400.f), 600.0f, 0.0f, "Square");
+    Particle squareParticle2(Vector2d(600.f, 400.f), 100.0f, 0.0f, "Square");
 
     squareParticle.velocity = Vector2d(50.0f, 0.0f);
     squareParticle2.velocity = Vector2d(-50.0f, 0.0f);
