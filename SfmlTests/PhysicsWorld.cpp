@@ -23,6 +23,7 @@ void PhysicsWorld::checkTwoCircleCollision() {
 
     for (it = particles.begin(); it != beforeEnd; it++) {
         Particle* p1 = *it;
+        if (p1->type != "Circle") continue;
         Collider c1 = p1->collider;
 
         list<Particle*>::iterator itt;
@@ -30,6 +31,7 @@ void PhysicsWorld::checkTwoCircleCollision() {
         itt++;
         for (; itt != particles.end(); itt++) {
             Particle* p2 = *itt;
+            if (p2->type != "Circle") continue;
             Collider c2 = p2->collider;
 
             if (c1.checkCollision(c2)) {
@@ -43,16 +45,20 @@ void PhysicsWorld::checkAABBCollision() {
     auto it = particles.begin();
     auto beforeEnd = particles.end();
     beforeEnd--;
+
     for (; it != beforeEnd; ++it) {
         Particle* p1 = *it;
+        if (p1->type != "Square") continue;
 
         auto itt = it;
         ++itt;
 
         for (; itt != particles.end(); ++itt) {
             Particle* p2 = *itt;
-            if (p1->collider.checkCollision(p2->collider)) {
-                std::cout << "AABB collision detected between particles!" << std::endl;
+            if (p2->type != "Square") continue;
+
+            if (p1->squareCollider.checkCollision(p2->squareCollider)) {
+                std::cout << "AABB collision detected between squares!" << std::endl;
             }
         }
     }

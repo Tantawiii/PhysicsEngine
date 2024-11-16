@@ -11,7 +11,7 @@ public :
 
 	bool checkCollision(Collider other)
 	{
-		//cout << (other.center - center).getMagnitude()<<" " << (other.r + r)<< endl;
+		cout << (other.center - center).getMagnitude()<<" " << (other.r + r)<< endl;
 		return (other.center - center).getMagnitude() < (other.r + r);
 	}
 	//bool checkCollision(Collider other) {
@@ -20,6 +20,5 @@ public :
 	//	cout << "Distance: " << distance << ", Radius Sum: " << radiusSum << endl; // Debugging output
 	//	return distance < radiusSum;
 	//}
-
 };
 

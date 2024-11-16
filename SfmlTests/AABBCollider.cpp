@@ -19,14 +19,14 @@ bool AABBCollider::checkCollision(AABBCollider other) {
     // ul.y minY
     // lr.y maxY
 
-    if (ul.x <= other.lr.x && ul.x >= other.ul.x && ul.y <= other.lr.y && ul.y >= other.ul.y) {
+    if (ul.x <= other.lr.x && lr.x >= other.ul.x && ul.y <= other.lr.y && lr.y >= other.ul.y) {
         std::cout << "Square collision detected!" << std::endl;
         return true;
     }
-    if (lr.x >= other.ul.x && lr.x <= other.lr.x && lr.y >= other.ul.y && lr.y <= other.lr.y) {
-        std::cout << "Square collision detected!" << std::endl;
-        return true;
-    }
-    std::cout << "Square collision undetected!" << std::endl;
+    //if (lr.x >= other.ul.x && lr.x <= other.lr.x && lr.y >= other.ul.y && lr.y <= other.lr.y) {
+    //    std::cout << "Square collision detected!" << std::endl;
+    //    return true;
+    //}
+    //std::cout << "Square collision undetected!" << std::endl;
     return false;
 }
