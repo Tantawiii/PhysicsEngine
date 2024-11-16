@@ -1,6 +1,6 @@
 #include "Particle.h"
 
-Particle::Particle(Vector2d position, float mass, float drag): postion(position), mass(mass), drag(drag), velocity(0, 0), acceleration(0, 0), forces(0, 0) {}
+Particle::Particle(Vector2d position, float mass, float drag, string type): postion(position), mass(mass), drag(drag), type(type), velocity(0, 0), acceleration(0, 0), forces(0, 0) {}
 
 void Particle::Update(float dt) {
     velocity.x *= (1 - drag);
@@ -13,6 +13,18 @@ void Particle::Update(float dt) {
     postion += velocity * dt;
 
     forces = Vector2d(0, 0);
+
+    if (type == "Circle") {
+        collider.center = postion;
+    }
+    else if (type == "Square") {
+        squareCollider.updatePosition(postion);
+        squareCollider.ul = postion - Vector2d(20, 20);
+        squareCollider.lr = postion + Vector2d(20, 20);
+    }
+    else{
+        std::cout << "I got nothing fam!" << std::endl;
+    }
 }
 
 
