@@ -8,9 +8,9 @@ void PhysicsWorld::addParticle(Particle* particle) {
     particles.push_back(particle);
 }
 
-void PhysicsWorld::addSATCollider(SATCollider* collider) {
-    satColliders.push_back(collider);
-}
+//void PhysicsWorld::addSATCollider(SATCollider* collider) {
+//    satColliders.push_back(collider);
+//}
 
 void PhysicsWorld::Update(float deltaTime) {
     for (Particle* particle : particles) {
@@ -74,20 +74,24 @@ void PhysicsWorld::checkAABBCollision() {
 }
 
 void PhysicsWorld::checkSATCollision() {
-    auto it = satColliders.begin();
-    auto beforeEnd = satColliders.end();
+    auto it = particles.begin();
+    auto beforeEnd = particles.end();
     beforeEnd--;
 
     for (; it != beforeEnd; ++it) {
-        SATCollider* c1 = *it;
+        Particle* p1 = *it;
+
+        if (p1->type != "satSquare") continue;
 
         auto itt = it;
         ++itt;
 
-        for (; itt != satColliders.end(); ++itt) {
-            SATCollider* c2 = *itt;
+        for (; itt != particles.end(); ++itt) {
+            Particle* p2 = *itt;
+            if (p2->type != "satSquare") continue;
 
-            if (c1->checkCollision(*c2)) {
+            if (p1->satSquareCollider.checkCollision(p2->satSquareCollider) && !satSquareFlag) {
+                satSquareFlag = true;
                 std::cout << "SAT collision detected between shapes!" << std::endl;
             }
         }

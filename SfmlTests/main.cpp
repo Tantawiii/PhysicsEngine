@@ -45,7 +45,7 @@ int main() {
     physicsWorld.addParticle(&squareParticle);
     physicsWorld.addParticle(&squareParticle2);
 
-    SATCollider shape1;
+    /*SATCollider shape1;
     shape1.points = {
         Vector2d(100, 200), Vector2d(350, 250), Vector2d(325, 300),
         Vector2d(275, 300), Vector2d(250, 250)
@@ -78,14 +78,38 @@ int main() {
     shape2.velocity = Vector2d(-50.0f, 0.0f);
 
     physicsWorld.addSATCollider(&shape1);
-    physicsWorld.addSATCollider(&shape2);
+    physicsWorld.addSATCollider(&shape2);*/
+
+    sf::RectangleShape square3(sf::Vector2f(40.f, 40.f));
+    sf::RectangleShape square4(sf::Vector2f(40.f, 40.f));
+    square3.setFillColor(sf::Color::Blue);
+    square4.setFillColor(sf::Color::Yellow);
+    square3.setPosition(400.f, 200.f);
+    square4.setPosition(600.f, 200.f);
+
+    Particle squareParticle3(Vector2d(400.f, 200.f), 600.0f, 0.0f, "satSquare");
+    Particle squareParticle4(Vector2d(600.f, 200.f), 100.0f, 0.0f, "satSquare");
+
+    ConvexShape shape1(4), shape2(4);
+    shape1.setFillColor(sf::Color::Color(12,25,231,100));
+    shape2.setFillColor(sf::Color::Color(12, 25, 231, 100));
+
+    squareParticle3.velocity = Vector2d(50.0f, 0.0f);
+    squareParticle4.velocity = Vector2d(-50.0f, 0.0f);
+
+    physicsWorld.addParticle(&squareParticle3);
+    physicsWorld.addParticle(&squareParticle4);
     
     renderer.AddDrawable(&circle);
     renderer.AddDrawable(&circle2);
     renderer.AddDrawable(&square);
     renderer.AddDrawable(&square2);
-    renderer.AddDrawable(&convexShape1);
-    renderer.AddDrawable(&convexShape2);
+    renderer.AddDrawable(&square3);
+    renderer.AddDrawable(&square4);
+    renderer.AddDrawable(&shape1);
+    renderer.AddDrawable(&shape2);
+    //renderer.AddDrawable(&convexShape1);
+    //renderer.AddDrawable(&convexShape2);
 
     sf::Clock clock;
 
@@ -101,14 +125,20 @@ int main() {
         physicsWorld.Update(deltaTime);
         physicsWorld.checkTwoCircleCollision();
         physicsWorld.checkAABBCollision();
-        //physicsWorld.checkSATCollision();
+        physicsWorld.checkSATCollision();
+        for (int test = 0; test < 4; test++) {
+            shape1.setPoint(test, squareParticle3.satSquareCollider.points[test]);
+            shape2.setPoint(test, squareParticle4.satSquareCollider.points[test]);
+        }
         circle.setPosition(particle.postion.x, particle.postion.y);
         circle2.setPosition(particle2.postion.x, particle.postion.y);
         square.setPosition(squareParticle.postion.x, squareParticle.postion.y);
         square2.setPosition(squareParticle2.postion.x, squareParticle2.postion.y);
-        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::D) {
-            shape2.updatePosition(shape2.position + Vector2d(100, 0));
-        }
+        square3.setPosition(squareParticle3.postion.x, squareParticle3.postion.y);
+        square4.setPosition(squareParticle4.postion.x, squareParticle4.postion.y);
+        //if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::D) {
+        //    shape2.updatePosition(shape2.position + Vector2d(100, 0));
+        //}
         renderer.Render(&window);
     }
 

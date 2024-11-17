@@ -2,6 +2,7 @@
 #include "Vector2d.h"
 #include "Collider.h"
 #include "AABBCollider.h"
+#include "SATCollider.h"
 
 class Particle
 {
@@ -13,6 +14,7 @@ public:
 	string type;
 	Collider collider;
 	AABBCollider squareCollider;
+	SATCollider satSquareCollider;
 	float mass;
 	float drag;
 
