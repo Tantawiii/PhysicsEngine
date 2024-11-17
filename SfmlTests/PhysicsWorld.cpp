@@ -1,4 +1,5 @@
 #include "PhysicsWorld.h"
+#include "SATCollider.h"
 
 
 const Vector2d PhysicsWorld::gravity = Vector2d(0,0);
